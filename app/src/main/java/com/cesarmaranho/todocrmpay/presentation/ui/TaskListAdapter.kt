@@ -42,9 +42,11 @@ class TaskListAdapter : ListAdapter<Task,
 
         fun bind(task: Task) {
             itemBinding.run {
-                taskButton.text = task.description
-                taskButton.setOnClickListener {
-                    onClickItem?.let { it1 -> it1(task) }
+                card.apply {
+                    setOnClickListener {
+                        onClickItem?.let { it1 -> it1(task) }
+                    }
+                    description.text = task.description
                 }
             }
         }

@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             taskList.apply {
-                layoutManager = GridLayoutManager(context, 1)
+                layoutManager = GridLayoutManager(context, 2)
                 adapter = taskListAdapter
             }
 

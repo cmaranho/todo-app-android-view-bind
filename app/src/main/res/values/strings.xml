@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Todo CRMPAY</string>
     <string name="add">Adicionar</string>
+    <string name="page_title"></string>
+    <string name="content_description_search">Search</string>
+    <string name="edit">Editar</string>
+    <string name="favorite">Favoritar</string>
+    <string name="more">Mais</string>
+    <string name="content_description_more">Ver mais</string>
+    <string name="content_description_favorite">Favoritar</string>
 </resources>
