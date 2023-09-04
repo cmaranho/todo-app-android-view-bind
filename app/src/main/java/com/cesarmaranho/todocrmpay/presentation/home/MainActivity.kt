@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
         taskListAdapter.submitList(it)
     }
 
+    private fun openEditTodo () {
+        val intent = Intent(this@MainActivity, TodoActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = ActivityMainBinding.inflate(layoutInflater)
@@ -30,14 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         taskListAdapter = TaskListAdapter().apply {
             onClickItem = {
-                val intent = Intent(this@MainActivity, TodoActivity::class.java)
-                startActivity(intent)
+                openEditTodo()
             }
         }
 
         bind.run {
             addTask.setOnClickListener {
                 viewModel.createTask()
+                openEditTodo()
             }
 
             taskList.apply {

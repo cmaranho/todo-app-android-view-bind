@@ -6,6 +6,7 @@ import com.cesarmaranho.todocrmpay.data.AppDataBase
 import com.cesarmaranho.todocrmpay.data.Converters
 import com.cesarmaranho.todocrmpay.domain.use_cases.CreateTaskUseCase
 import com.cesarmaranho.todocrmpay.domain.use_cases.GetAllTasksUseCase
+import com.cesarmaranho.todocrmpay.domain.use_cases.UpdateTaskUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,10 +39,20 @@ class TodoModules {
 
     @Provides
     @Singleton
+    fun provideUpdateTaskUseCase(
+        dataBase: AppDataBase
+    ): UpdateTaskUseCase {
+        return UpdateTaskUseCase(dataBase.appDao)
+    }
+
+    @Provides
+    @Singleton
     fun provideGetAllTasksUseCase(
         dataBase: AppDataBase
     ): GetAllTasksUseCase {
         return GetAllTasksUseCase(dataBase.appDao)
     }
+
+
 
 }
