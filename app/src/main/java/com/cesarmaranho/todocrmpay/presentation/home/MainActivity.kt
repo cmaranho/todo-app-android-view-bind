@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bind: ActivityMainBinding
     private lateinit var taskListAdapter: TaskListAdapter
 
-    private val taskList = Observer<List<Task>> {
-        taskListAdapter.submitList(it)
+    private val taskList = Observer<List<Task>> { tasks ->
+        taskListAdapter.submitList(tasks)
     }
 
-    private fun openEditTodo () {
+    private fun openEditTodo() {
         val intent = Intent(this@MainActivity, TodoActivity::class.java)
         startActivity(intent)
     }
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(bind.root)
 
         taskListAdapter = TaskListAdapter().apply {
-            onClickItem = {
+            onClickItem = { task ->
                 openEditTodo()
             }
         }

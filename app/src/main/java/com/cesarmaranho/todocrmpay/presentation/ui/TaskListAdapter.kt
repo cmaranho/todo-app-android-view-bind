@@ -9,8 +9,7 @@ import com.cesarmaranho.todocrmpay.databinding.TaskLayoutBinding
 import com.cesarmaranho.todocrmpay.domain.model.Task
 
 
-class TaskListAdapter : ListAdapter<Task,
-        TaskListAdapter.SelectSettignsViewHolder>(DIFF_CALLBACK) {
+class TaskListAdapter : ListAdapter<Task, TaskListAdapter.SelectTaskViewHolder>(DIFF_CALLBACK) {
 
     var onClickItem: ((Task) -> Unit)? = null
 
@@ -26,25 +25,19 @@ class TaskListAdapter : ListAdapter<Task,
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectSettignsViewHolder {
-        return SelectSettignsViewHolder.create(parent, onClickItem)
-    }
-
-    override fun onBindViewHolder(holder: SelectSettignsViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-
-
-    class SelectSettignsViewHolder(
+    class SelectTaskViewHolder(
         private val itemBinding: TaskLayoutBinding,
-        private val onClickItem: ((Task) -> Unit)?,
+        private val onClickItem: ((Task) -> Unit)?
+
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(task: Task) {
             itemBinding.run {
                 card.apply {
                     setOnClickListener {
-                        onClickItem?.let { it1 -> it1(task) }
+                        onClickItem?.let { callback ->
+                            callback(task)
+                        }
                     }
                     description.text = task.description
                 }
@@ -55,15 +48,22 @@ class TaskListAdapter : ListAdapter<Task,
             fun create(
                 parent: ViewGroup,
                 onClickItem: ((Task) -> Unit)?,
-            ): SelectSettignsViewHolder {
-
+            ): SelectTaskViewHolder {
                 val itemBinding = TaskLayoutBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
 
-                return SelectSettignsViewHolder(itemBinding, onClickItem)
+                return SelectTaskViewHolder(itemBinding, onClickItem)
             }
         }
 
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectTaskViewHolder {
+        return  SelectTaskViewHolder.create(parent, onClickItem)
+    }
+
+    override fun onBindViewHolder(holder: SelectTaskViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 }
